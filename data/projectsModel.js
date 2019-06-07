@@ -22,11 +22,28 @@ function getProjects() {
     return db('projects')
 }
 
-function getProjectById(id) {
-    return db('projects')
+
+function getActionById(id) {
+    return db('actions')
     .where ({ id })
     .first()
 }
+
+async function getProjectById(id) {
+
+    // get project and join with actions
+    const project = await db
+    .select('projects.*', 'actions.description as action', 'actions.notes as notes', 'actions.completed as action_completed' )
+    .from('actions')
+    .where ({ 'project_id' : id })
+    .innerJoin('projects')
+    .first()
+
+    const actions = await getActionById(id)
+
+    return { project, actions };
+}
+
 
 function addProject(project) {
     return db('projects')
