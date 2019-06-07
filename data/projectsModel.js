@@ -10,3 +10,22 @@ const knexConfig = {
 }
 
 const db = knex(knexConfig);
+
+module.exports = {
+    getProjects,
+    getProjectById,
+    addProject,
+    
+}
+
+function getProjects() {
+    return db('projects')
+}
+
+function getProjectById() {
+    return null
+}
+
+function addProject() {
+    return null
+}
