@@ -22,10 +22,17 @@ function getProjects() {
     return db('projects')
 }
 
-function getProjectById() {
-    return null
+function getProjectById(id) {
+    return db('projects')
+    .where ({ id })
+    .first()
 }
 
-function addProject() {
-    return null
+function addProject(project) {
+    return db('projects')
+    .insert(project, 'id')
+    .then(ids => {
+        const [id] = ids;
+        return getProjectById(id)
+    })
 }
